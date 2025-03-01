@@ -2,19 +2,19 @@
 [CmdletBinding(DefaultParameterSetName = "Default")]
 param(
     [Parameter(Mandatory = $false, ParameterSetName = "Picky")]
-    [switch]$WinGet = $false,
+    [switch]$WinGet,
 
     [Parameter(Mandatory = $false, ParameterSetName = "Picky")]
-    [switch]$PSProfile = $false,
+    [switch]$PSProfile,
 
     [Parameter(Mandatory = $false, ParameterSetName = "Picky")]
-    [switch]$PSRequirements = $false,
+    [switch]$PSRequirements,
 
     [Parameter(Mandatory = $false, ParameterSetName = "Picky")]
-    [switch]$DotFiles = $false,
+    [switch]$DotFiles,
 
     [Parameter(Mandatory = $false, ParameterSetName = "Picky")]
-    [switch]$GSudo = $false
+    [switch]$GSudo
 )
 
 $IsCodespace = $env:CODESPACES -eq $true
@@ -140,23 +140,23 @@ function Install-GSudo {
 }
 
 if ($IsWindows) {
-    if ($PsCmdlet.ParameterSetName -eq "Picky" -and $WinGet) {
+    if ($PsCmdlet.ParameterSetName -eq "Picky" -and $WinGet.IsPresent) {
         Install-WinGetTools
     }
 }
 
-if ($PsCmdlet.ParameterSetName -eq "Picky" -and $PSProfile) {
+if ($PsCmdlet.ParameterSetName -eq "Picky" -and $PSProfile.IsPresent) {
     Install-PSProfile
 }
 
-if ($PsCmdlet.ParameterSetName -eq "Picky" -and $PSRequirements) {
+if ($PsCmdlet.ParameterSetName -eq "Picky" -and $PSRequirements.IsPresent) {
     Install-PSRequirements
 }
 
-if ($PsCmdlet.ParameterSetName -eq "Picky" -and $DotFiles) {
+if ($PsCmdlet.ParameterSetName -eq "Picky" -and $DotFiles.IsPresent) {
     Install-DotFiles
 }
 
-if ($PsCmdlet.ParameterSetName -eq "Picky" -and $GSudo) {
+if ($PsCmdlet.ParameterSetName -eq "Picky" -and $GSudo.IsPresent) {
     Install-GSudo
 }
